@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Tinder Clone',
         onGenerateRoute: RouteGenerator.generateRoute,
-        home: LoginScreen(),
+        home: MainScreen(),
       ),
     );
   }

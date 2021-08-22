@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tinder_clone/screens/main_screen.dart';
 import 'package:tinder_clone/utilities/providers/providers.dart';
 import 'package:tinder_clone/utilities/utilities.dart';
 import 'package:tinder_clone/widgets/widgets.dart';
@@ -75,7 +76,7 @@ class UserPhotoForm extends StatelessWidget {
             text: 'CONTINUE',
             theme: RoundedButtonTheme.primaryGradient,
             onPressed: (){
-              context.read<RegistrationProvider>().nextPage();
+              Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (Route<dynamic> route) => false);
             },
           ),
         ),

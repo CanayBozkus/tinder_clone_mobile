@@ -8,6 +8,7 @@ class RouteGenerator {
     switch(settings.name){
       case LoginScreen.routeName: return MaterialPageRoute(builder: (_) => LoginScreen());
       case RegisterScreen.routeName: return MaterialPageRoute(builder: (_) => RegisterScreen());
+      case MainScreen.routeName: return MaterialPageRoute(builder: (_) => MainScreen());
       default: return MaterialPageRoute(builder: (_) => Text('error'));
     }
   }

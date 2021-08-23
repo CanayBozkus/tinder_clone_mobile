@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tinder_clone/screens/screens.dart';
 import 'package:tinder_clone/utilities/utilities.dart';
 import 'package:tinder_clone/widgets/widgets.dart';
 
@@ -44,13 +45,24 @@ class ProfilePage extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 15,),
-                      Text(
-                        'Nadia, 25',
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 1.2
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Nadia, 25',
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1.2
+                            ),
+                          ),
+                          SizedBox(width: 15,),
+                          Icon(
+                            Icons.check_circle_outline_outlined,
+                            color: Colors.black26,
+                            size: 28,
+                          )
+                        ],
                       ),
                       SizedBox(height: 30,),
                       SizedBox(
@@ -65,7 +77,9 @@ class ProfilePage extends StatelessWidget {
                                   backgroundColor: Colors.grey.shade200,
                                   iconColor: Colors.black26,
                                   iconSize: 44,
-                                  onPressed: (){},
+                                  onPressed: (){
+                                    Navigator.pushNamed(context, SettingScreen.routeName);
+                                  },
                                 ),
                                 SizedBox(height: 8,),
                                 Text(

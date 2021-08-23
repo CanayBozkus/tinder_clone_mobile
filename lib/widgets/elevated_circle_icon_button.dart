@@ -12,14 +12,14 @@ class ElevatedCircleIconButton extends StatelessWidget {
 
   final Color iconColor;
   final double iconSize;
-  final Function onPressed;
+  final Function() onPressed;
   final Color backgroundColor;
   final Color splashColor;
   final IconData icon;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: (){},
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         shape: CircleBorder(),
         padding: const EdgeInsets.all(10),

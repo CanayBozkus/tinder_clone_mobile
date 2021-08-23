@@ -32,7 +32,7 @@ class MainScreenTabBar extends StatelessWidget {
             ),
             child: Image.asset(
               'assets/img/diamond.png',
-              color: Colors.black26,
+              color: index == 1 ? Palette.yellow : Colors.black26,
               width: 35,
             ),
             onPressed: (){
@@ -41,11 +41,11 @@ class MainScreenTabBar extends StatelessWidget {
           ),
           TextButton(
             style: TextButton.styleFrom(
-                primary: Palette.red
+                primary: Palette.green
             ),
             child: Image.asset(
               'assets/img/chat.png',
-              color: Colors.black26,
+              color: index == 2 ? Palette.green : Colors.black26,
               width: 35,
             ),
             onPressed: (){
@@ -53,9 +53,12 @@ class MainScreenTabBar extends StatelessWidget {
             },
           ),
           TextButton(
+            style: TextButton.styleFrom(
+                primary: Palette.orange
+            ),
             child: Image.asset(
               'assets/img/profile.png',
-              color: Colors.black26,
+              color: index == 3 ? Palette.orange : Colors.black26,
               width: 40,
             ),
             onPressed: (){

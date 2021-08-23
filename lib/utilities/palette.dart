@@ -7,6 +7,7 @@ class Palette {
   static const Color red = Color(0xffc20a0a);
   static const Color yellow = Color(0xfffbff00);
   static const Color orange = Color(0xffff9100);
+  static const Color green = Color(0xff2ac96f);
   static const LinearGradient mainGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,

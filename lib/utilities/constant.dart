@@ -76,4 +76,10 @@ class K {
     fontSize: 16,
     fontWeight: FontWeight.w600
   );
+
+  static const profilePageButtonInfoTextStyle = TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      color: Colors.black38
+  );
 }

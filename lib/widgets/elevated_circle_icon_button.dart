@@ -25,7 +25,7 @@ class ElevatedCircleIconButton extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         onPrimary: splashColor,
         primary: backgroundColor,
-        elevation: 6,
+        elevation: 3,
       ),
       child: Icon(
         icon,

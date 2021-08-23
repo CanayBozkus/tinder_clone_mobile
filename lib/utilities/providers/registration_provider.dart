@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-class RegistrationProvider with ChangeNotifier {
+class RegistrationProvider {
+  RegistrationProvider({required this.notifyListeners});
+
+  final void Function() notifyListeners;
   late PageController _controller;
   late int _pageCount;
   int _currentPage = 0;

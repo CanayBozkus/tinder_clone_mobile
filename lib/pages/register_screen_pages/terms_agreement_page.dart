@@ -80,7 +80,7 @@ class TermsAgreementPage extends StatelessWidget {
             text: 'I AGREE',
             theme: RoundedButtonTheme.primary,
             onPressed: (){
-              context.read<RegistrationProvider>().nextPage();
+              context.read<GeneralProvider>().registrationProvider.nextPage();
             },
           )
         ],

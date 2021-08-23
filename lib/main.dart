@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<GeneralProvider>(create: (_) => GeneralProvider()),
-        ChangeNotifierProvider<RegistrationProvider>(create: (_) => RegistrationProvider()),
       ],
       child: MaterialApp(
         title: 'Tinder Clone',

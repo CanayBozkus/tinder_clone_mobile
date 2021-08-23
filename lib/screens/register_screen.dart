@@ -21,8 +21,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void initState() {
     super.initState();
     _controller = PageController();
-    context.read<RegistrationProvider>().pageController = _controller;
-    context.read<RegistrationProvider>().pageCount = pages.length;
+    context.read<GeneralProvider>().registrationProvider.pageController = _controller;
+    context.read<GeneralProvider>().registrationProvider.pageCount = pages.length;
   }
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             color: Colors.black38,
             iconSize: 28,
             onPressed: (){
-              bool success = context.read<RegistrationProvider>().previousPage();
+              bool success = context.read<GeneralProvider>().registrationProvider.previousPage();
               if(!success){
                 Navigator.pop(context);
               }

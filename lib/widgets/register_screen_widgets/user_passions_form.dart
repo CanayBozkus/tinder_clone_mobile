@@ -47,7 +47,7 @@ class UserPassionsForm extends StatelessWidget {
               text: 'CONTINUE (0/5)',
               theme: RoundedButtonTheme.primaryGradient,
               onPressed: (){
-                context.read<RegistrationProvider>().nextPage();
+                context.read<GeneralProvider>().registrationProvider.nextPage();
               },
             ),
           ),

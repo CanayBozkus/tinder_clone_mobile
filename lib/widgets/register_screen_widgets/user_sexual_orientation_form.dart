@@ -72,7 +72,7 @@ class UserSexualOrientationForm extends StatelessWidget {
               text: 'CONTINUE',
               theme: RoundedButtonTheme.primaryGradient,
               onPressed: (){
-                context.read<RegistrationProvider>().nextPage();
+                context.read<GeneralProvider>().registrationProvider.nextPage();
               },
             ),
           ),

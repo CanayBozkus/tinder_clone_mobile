@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tinder_clone/utilities/palette.dart';
 
 class K {
   static final countryPhoneCodes = List.generate(100, (int index) => index.toString()).toList();
@@ -81,5 +82,16 @@ class K {
       fontSize: 16,
       fontWeight: FontWeight.w600,
       color: Colors.black38
+  );
+
+  static const settingScreenInfoTextStyle = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    color: Palette.primaryColor,
+  );
+
+  static const settingsScreenTileTitleStyle = TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w600
   );
 }

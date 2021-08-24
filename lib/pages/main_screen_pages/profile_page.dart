@@ -20,7 +20,7 @@ class ProfilePage extends StatelessWidget {
               child: ClipPath(
                 clipper: CurvedBottomClipper(),
                 child: Container(
-                  padding: const EdgeInsets.only(bottom: 30),
+                  padding: const EdgeInsets.only(bottom: 30, top: 20),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     boxShadow: [
@@ -34,15 +34,33 @@ class ProfilePage extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.black26,
-                        radius: 80,
-                        child: ClipOval(
-                          child: Image.asset(
-                            'assets/img/fake_img_1.jpg',
-                            fit: BoxFit.fill,
+                      Stack(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.black26,
+                            radius: 80,
+                            child: ClipOval(
+                              child: Image.asset(
+                                'assets/img/fake_img_1.jpg',
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                           ),
-                        ),
+                          Positioned(
+                            right: 0,
+                            child: Material(
+                              elevation: 5,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(
+                                  Icons.edit,
+                                  color: Colors.black26,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                       SizedBox(height: 15,),
                       Row(
@@ -126,16 +144,15 @@ class ProfilePage extends StatelessWidget {
                             Column(
                               children: [
                                 ElevatedCircleIconButton(
-                                  icon: Icons.edit,
-                                  backgroundColor: Palette.orange,
-                                  iconColor: Colors.white,
-                                  splashColor: Colors.white,
+                                  icon: Icons.shield_sharp,
+                                  backgroundColor: Colors.grey.shade200,
+                                  iconColor: Colors.black26,
                                   iconSize: 44,
                                   onPressed: (){},
                                 ),
                                 SizedBox(height: 8,),
                                 Text(
-                                  'EDIT INFO',
+                                  'SAFETY',
                                   style: K.profilePageButtonInfoTextStyle,
                                 )
                               ],

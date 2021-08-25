@@ -114,7 +114,7 @@ class SwipeEngine {
       begin: Offset(dragX, dragY),
       end: Offset(x, y),
     ).animate(animationController);
-    transformAnimation = Tween<double>(begin:0, end: 0).animate(animationController);
+    transformAnimation = Tween<double>(begin:dragX / 10, end: x / 10).animate(animationController);
     updateDetails = details;
     dragX = x ;
     dragY = y ;

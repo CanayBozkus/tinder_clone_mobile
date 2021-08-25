@@ -32,7 +32,7 @@ class MainScreenTabBar extends StatelessWidget {
             ),
             child: Image.asset(
               'assets/img/diamond.png',
-              color: index == 1 ? Palette.yellow : Colors.black26,
+              color: index == 1 ? Palette.premiumColor : Colors.black26,
               width: 35,
             ),
             onPressed: (){

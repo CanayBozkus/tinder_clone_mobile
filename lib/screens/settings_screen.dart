@@ -30,7 +30,9 @@ class _SettingScreenState extends State<SettingScreen> {
         elevation: 2,
         actions: [
           TextButton(
-            onPressed: (){},
+            onPressed: (){
+              Navigator.pop(context);
+            },
             style: TextButton.styleFrom(
               primary: Palette.primaryColor
             ),

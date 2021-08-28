@@ -29,12 +29,12 @@ class _DatingPageState extends State<DatingPage> {
               TinderCard(
                 header: 'Nadia',
                 bio: 'Hi, I\'m here to make new friends',
-                images: ['assets/img/fake_img_1.jpg',],
+                images: ['assets/img/fake_img_1.jpg', 'assets/img/fake_img_2.jpg',],
               ),
               TinderCard(
                 header: 'Bella',
                 bio: 'Hi, I\'m here to make new friends',
-                images: ['assets/img/fake_img_2.jpg',],
+                images: ['assets/img/fake_img_2.jpg', 'assets/img/fake_img_1.jpg',],
               ),
             ],
           ),

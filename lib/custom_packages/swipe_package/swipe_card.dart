@@ -22,7 +22,6 @@ class _SwipeCardState extends State<SwipeCard> with SingleTickerProviderStateMix
   late AnimationController controller;
   @override
   void initState() {
-
    super.initState();
    widget.engine.stateController = setState;
    widget.engine.children = widget.children.reversed.toList();

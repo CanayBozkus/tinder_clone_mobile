@@ -55,14 +55,14 @@ class _DatingPageState extends State<DatingPage> {
               ),
               ElevatedCircleIconButton(
                 onPressed: (){
-                  _engine.reject();
+                  _engine.swipeLeft();
                 },
                 icon: Icons.close,
                 iconColor: Palette.red,
               ),
               ElevatedCircleIconButton(
                 onPressed: (){
-
+                  _engine.swipeUp();
                 },
                 icon: Icons.star,
                 iconSize: 26,
@@ -70,7 +70,7 @@ class _DatingPageState extends State<DatingPage> {
               ),
               ElevatedCircleIconButton(
                 onPressed: (){
-                  _engine.like();
+                  _engine.swipeRight();
                 },
                 icon: Icons.favorite,
                 iconColor: Colors.greenAccent,

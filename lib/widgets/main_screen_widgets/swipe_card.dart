@@ -21,9 +21,6 @@ class SwipeEngine {
   late void Function(void Function()) stateController;
   int frontCardIndex = 0;
   int backCardIndex = 1;
-  DragStartDetails? startDetails;
-  DragUpdateDetails? updateDetails;
-  DragEndDetails? endDetails;
   Animation<Offset>? rangeAnimation;
   Animation<double>? transformAnimation;
   double dragX = 0;
@@ -32,6 +29,13 @@ class SwipeEngine {
   Movement movement = Movement.none;
   DragAction dragAction = DragAction.none;
 
+  double leftSwipeDestinationX = -3;
+  double rightSwipeDestinationX = 3;
+  double leftSwipeDestinationY = -1;
+  double rightSwipeDestinationY = -1;
+  double dragLeftXLimit = -0.3;
+  double dragRightXLimit = 0.3;
+  double dragYLimit = -0.25;
   init(){
     setRangeAnimation(0, 0, 0, 0);
     setTransformAnimation(0, 0);
@@ -76,19 +80,24 @@ class SwipeEngine {
   }
 
 
-  void reject(){
-    //setMovementAnimation(Movement.left);
+  void swipeLeft(){
     movement = Movement.click;
-    setRangeAnimation(0, 0, -3, -1);
+    setRangeAnimation(0, 0, leftSwipeDestinationX, leftSwipeDestinationY);
     setTransformAnimation(0, -0.2);
     startAnimation();
   }
 
-  void like(){
-    //setMovementAnimation(Movement.right);
+  void swipeRight(){
     movement = Movement.click;
-    setRangeAnimation(0, 0, 3, -1);
+    setRangeAnimation(0, 0, rightSwipeDestinationX, rightSwipeDestinationY);
     setTransformAnimation(0, 0.2);
+    startAnimation();
+  }
+
+  void swipeUp(){
+    movement = Movement.click;
+    setRangeAnimation(0, 0, 0, -5);
+    setTransformAnimation(0, 0);
     startAnimation();
   }
 
@@ -98,7 +107,6 @@ class SwipeEngine {
   }
 
   Widget frontCardBuilder(){
-
     if(frontCardIndex + 1 > children.length){
       return Container();
     }
@@ -134,59 +142,68 @@ class SwipeEngine {
   }
 
   void dragStart(DragStartDetails details){
-    startDetails = details;
     movement = Movement.drag;
   }
 
   void dragUpdate(DragUpdateDetails details, Size size){
-    if(updateDetails == null){
-      updateDetails = details;
-      return;
-    }
     double x = dragX + (details.delta.dx)/(size.width *2);
     double y = dragY + (details.delta.dy)/(size.height *2);
 
-    rangeAnimation = Tween<Offset>(
-      begin: Offset(dragX, dragY),
-      end: Offset(x, y),
-    ).animate(animationController);
-    transformAnimation = Tween<double>(begin:dragX / 10, end: x / 10).animate(animationController);
-    updateDetails = details;
+    setRangeAnimation(dragX, dragY, x, y);
+    setTransformAnimation(dragX / 10, x / 10);
+
     dragX = x ;
     dragY = y ;
     startAnimation();
+  }
 
+  void checkDragResult(){
+    print(dragY);
+    if(dragX > dragLeftXLimit && dragX < dragRightXLimit && dragY > dragYLimit){
+      dragAction = DragAction.reset;
+    }
+    else {
+      dragAction = DragAction.swipe;
+    }
+  }
+
+  void resetDrag(){
+    setRangeAnimation(dragX, dragY, 0, 0);
+    setTransformAnimation(dragX / 10, 0);
+    startAnimation();
+    dragX = 0;
+    dragY = 0;
+  }
+
+  void swipeDrag(){
+    if(dragY < dragYLimit){
+      setRangeAnimation(dragX, dragY, 0, -3);
+      setTransformAnimation(dragX / 10, 0);
+    }
+
+    else if(dragX < dragLeftXLimit){
+      setRangeAnimation(dragX, dragY, leftSwipeDestinationX, leftSwipeDestinationY);
+      setTransformAnimation(dragX / 10, -0.2);
+    }
+
+    else if(dragX > dragRightXLimit){
+      setRangeAnimation(dragX, dragY, rightSwipeDestinationX, rightSwipeDestinationY);
+      setTransformAnimation(dragX / 10, 0.2);
+    }
+
+    startAnimation();
+    dragX = 0;
+    dragY = 0;
   }
 
   void dragEnd(DragEndDetails details){
-    endDetails = details;
-    print('end');
+    checkDragResult();
 
-    if(dragX > -0.3 && dragX < 0.3){
-      dragAction = DragAction.reset;
-      setRangeAnimation(dragX, dragY, 0, 0);
-      setTransformAnimation(dragX / 10, 0);
-      startAnimation();
-      dragX = 0;
-      dragY = 0;
+    if(dragAction == DragAction.reset){
+      resetDrag();
     }
-
-    else if(dragX < -0.3){
-      dragAction = DragAction.swipe;
-      setRangeAnimation(dragX, dragY, -3, -1);
-      setTransformAnimation(dragX / 10, -0.2);
-      startAnimation();
-      dragX = 0;
-      dragY = 0;
-    }
-
-    else if(dragX > -0.3){
-      dragAction = DragAction.swipe;
-      setRangeAnimation(dragX, dragY, 3, -1);
-      setTransformAnimation(dragX / 10, 0.2);
-      startAnimation();
-      dragX = 0;
-      dragY = 0;
+    else {
+      swipeDrag();
     }
 
   }
@@ -213,7 +230,7 @@ class _SwipeCardState extends State<SwipeCard> with SingleTickerProviderStateMix
    widget.engine.stateController = setState;
    widget.engine.children = widget.children.reversed.toList();
 
-   controller = AnimationController(duration: const Duration(seconds: 1), vsync: this);
+   controller = AnimationController(duration: const Duration(milliseconds: 500), vsync: this);
    widget.engine.animationController = controller;
    widget.engine.init();
 

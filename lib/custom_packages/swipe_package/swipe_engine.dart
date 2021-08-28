@@ -1,22 +1,11 @@
-
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
-
-enum Movement {
-  none,
-  drag,
-  click,
-}
-
-enum DragAction {
-  swipe,
-  reset,
-  none,
-}
+import 'package:tinder_clone/custom_packages/swipe_package/enums.dart';
+import 'package:tinder_clone/custom_packages/swipe_package/swipe_package.dart';
+import 'package:tinder_clone/custom_packages/swipe_package/tinder_card_ui.dart';
 
 class SwipeEngine {
 
-  late List<Widget> children;
+  late List<TinderCard> children;
   late AnimationController animationController;
   late void Function(void Function()) stateController;
   int frontCardIndex = 0;
@@ -79,11 +68,11 @@ class SwipeEngine {
     startAnimation();
   }
 
-
   void swipeLeft(){
     movement = Movement.click;
     setRangeAnimation(0, 0, leftSwipeDestinationX, leftSwipeDestinationY);
     setTransformAnimation(0, -0.2);
+    children[frontCardIndex].action = TinderCardAction.left;
     startAnimation();
   }
 
@@ -91,6 +80,7 @@ class SwipeEngine {
     movement = Movement.click;
     setRangeAnimation(0, 0, rightSwipeDestinationX, rightSwipeDestinationY);
     setTransformAnimation(0, 0.2);
+    children[frontCardIndex].action = TinderCardAction.right;
     startAnimation();
   }
 
@@ -98,7 +88,36 @@ class SwipeEngine {
     movement = Movement.click;
     setRangeAnimation(0, 0, 0, -5);
     setTransformAnimation(0, 0);
+    children[frontCardIndex].action = TinderCardAction.up;
     startAnimation();
+  }
+
+  void rollBack(){
+    if(frontCardIndex -1 < 0){
+      return;
+    }
+
+    if(children[frontCardIndex -1].action == TinderCardAction.left){
+      setRangeAnimation(leftSwipeDestinationX, leftSwipeDestinationY, 0, 0);
+      setTransformAnimation(-0.2, 0);
+    }
+
+    else if(children[frontCardIndex -1].action == TinderCardAction.right){
+      setRangeAnimation(rightSwipeDestinationX, rightSwipeDestinationY, 0, 0);
+      setTransformAnimation(0.2, 0);
+    }
+
+    else if(children[frontCardIndex -1].action == TinderCardAction.up){
+      setRangeAnimation(0, -5, 0, 0);
+      setTransformAnimation(0, 0);
+    }
+
+    frontCardIndex-=1;
+    backCardIndex-=1;
+    children[frontCardIndex].action = TinderCardAction.none;
+    movement = Movement.rollBack;
+    startAnimation();
+
   }
 
   void startAnimation(){
@@ -115,7 +134,7 @@ class SwipeEngine {
       turns: transformAnimation!,
       child: SlideTransition(
         position: rangeAnimation!,
-        child: children[frontCardIndex],
+        child: TinderCardUI(card: children[frontCardIndex],),
       ),
     );
   }
@@ -124,7 +143,7 @@ class SwipeEngine {
     if(backCardIndex + 1 > children.length){
       return Container();
     }
-    return children[backCardIndex];
+    return TinderCardUI(card: children[backCardIndex],);
   }
 
   void setRangeAnimation(double startX, double startY, double endX, double endY){
@@ -158,7 +177,6 @@ class SwipeEngine {
   }
 
   void checkDragResult(){
-    print(dragY);
     if(dragX > dragLeftXLimit && dragX < dragRightXLimit && dragY > dragYLimit){
       dragAction = DragAction.reset;
     }
@@ -175,20 +193,23 @@ class SwipeEngine {
     dragY = 0;
   }
 
-  void swipeDrag(){
+  void dragSwipe(){
     if(dragY < dragYLimit){
       setRangeAnimation(dragX, dragY, 0, -3);
       setTransformAnimation(dragX / 10, 0);
+      children[frontCardIndex].action = TinderCardAction.up;
     }
 
     else if(dragX < dragLeftXLimit){
       setRangeAnimation(dragX, dragY, leftSwipeDestinationX, leftSwipeDestinationY);
       setTransformAnimation(dragX / 10, -0.2);
+      children[frontCardIndex].action = TinderCardAction.left;
     }
 
     else if(dragX > dragRightXLimit){
       setRangeAnimation(dragX, dragY, rightSwipeDestinationX, rightSwipeDestinationY);
       setTransformAnimation(dragX / 10, 0.2);
+      children[frontCardIndex].action = TinderCardAction.right;
     }
 
     startAnimation();
@@ -203,74 +224,8 @@ class SwipeEngine {
       resetDrag();
     }
     else {
-      swipeDrag();
+      dragSwipe();
     }
 
-  }
-}
-
-class SwipeCard extends StatefulWidget {
-
-  SwipeCard({required this.engine, required this.children});
-
-  final SwipeEngine engine;
-  final List<Widget> children;
-
-  @override
-  _SwipeCardState createState() => _SwipeCardState();
-}
-
-class _SwipeCardState extends State<SwipeCard> with SingleTickerProviderStateMixin  {
-  late Animation<double> animation;
-  late AnimationController controller;
-  @override
-  void initState() {
-
-   super.initState();
-   widget.engine.stateController = setState;
-   widget.engine.children = widget.children.reversed.toList();
-
-   controller = AnimationController(duration: const Duration(milliseconds: 500), vsync: this);
-   widget.engine.animationController = controller;
-   widget.engine.init();
-
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-  @override
-  Widget build(BuildContext context) {
-
-    return Stack(
-      children: [
-        widget.engine.backCardBuilder(),
-        GestureDetector(
-          onPanStart: (DragStartDetails details){
-            widget.engine.dragStart(details);
-          },
-          onPanUpdate: (DragUpdateDetails details){
-            widget.engine.dragUpdate(details, MediaQuery.of(context).size);
-          },
-          onPanEnd: (DragEndDetails details){
-            widget.engine.dragEnd(details);
-          },
-          child: widget.engine.frontCardBuilder(),
-        ),
-        //...widget.engine.builder()
-        /*
-        SlideTransition(
-          position: widget.engine.offsetAnimation,
-          child: widget.engine.cardBuilder(),
-        ),
-        SlideTransition(
-          position: widget.engine.offsetAnimation,
-          child: widget.engine.children[1],
-        ),*/
-        //...widget.engine.children,
-      ],
-    );
   }
 }

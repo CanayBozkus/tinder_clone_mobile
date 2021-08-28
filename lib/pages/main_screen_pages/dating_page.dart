@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tinder_clone/custom_packages/swipe_package/swipe_package.dart';
 import 'package:tinder_clone/utilities/utilities.dart';
 import 'package:tinder_clone/widgets/main_screen_widgets/main_screen_widgets.dart';
 import 'package:tinder_clone/widgets/widgets.dart';
@@ -26,15 +27,15 @@ class _DatingPageState extends State<DatingPage> {
             engine: _engine,
             children: [
               TinderCard(
-                img: 'assets/img/fake_img_1.jpg',
                 header: 'Nadia',
                 bio: 'Hi, I\'m here to make new friends',
+                images: ['assets/img/fake_img_1.jpg',],
               ),
               TinderCard(
-                img: 'assets/img/fake_img_2.jpg',
                 header: 'Bella',
                 bio: 'Hi, I\'m here to make new friends',
-              )
+                images: ['assets/img/fake_img_2.jpg',],
+              ),
             ],
           ),
         ),
@@ -50,7 +51,9 @@ class _DatingPageState extends State<DatingPage> {
                   icon: Icons.refresh,
                   iconColor: Colors.black26,
                   iconSize: 26,
-                  onPressed: (){},
+                  onPressed: (){
+                    _engine.rollBack();
+                  },
                 ),
               ),
               ElevatedCircleIconButton(

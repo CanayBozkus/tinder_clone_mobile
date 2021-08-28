@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:tinder_clone/custom_packages/swipe_package/swipe_package.dart';
 
-class TinderCard extends StatelessWidget {
-
-  final String img;
-  final String header;
-  final String bio;
-
-  TinderCard({
+class TinderCardUI extends StatelessWidget {
+  final TinderCard card;
+  TinderCardUI({
     Key? key,
-    required this.img,
-    required this.header,
-    required this.bio
+    required this.card,
   }) : super(key: key);
 
   @override
@@ -26,7 +21,7 @@ class TinderCard extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Image.asset(
-                img,
+                card.images[0],
                 fit: BoxFit.fill,
               ),
             ),
@@ -72,7 +67,7 @@ class TinderCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        header,
+                        card.header,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 40,
@@ -89,7 +84,7 @@ class TinderCard extends StatelessWidget {
                   ),
                   SizedBox(height: 10,),
                   Text(
-                    bio,
+                    card.bio,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 5,
                     style: TextStyle(

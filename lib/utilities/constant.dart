@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tinder_clone/utilities/palette.dart';
 
+import 'country_codes.dart';
+
 class K {
-  static final countryPhoneCodes = List.generate(100, (int index) => index.toString()).toList();
+  static final List<Map<String, String>> countryCodes = countriesEnglish;
 
   static const sexualOrientations = [
     'Straight',
@@ -93,5 +95,27 @@ class K {
   static const settingsScreenTileTitleStyle = TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w600
+  );
+
+  static InputDecoration textFormFieldDecoration({String hintText = ''}){
+    return InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: Colors.black,
+        ),
+        focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+                color: Palette.primaryColor
+            )
+        )
+    );
+  }
+
+  static const textFormFieldTextStyle = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    color: Colors.black,
   );
 }

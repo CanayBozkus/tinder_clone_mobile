@@ -15,7 +15,6 @@ class TinderCardUI extends StatefulWidget {
 class _TinderCardUIState extends State<TinderCardUI> {
   @override
   Widget build(BuildContext context) {
-    print('${widget.card.header} ${widget.card.imageIndex}');
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: GestureDetector(

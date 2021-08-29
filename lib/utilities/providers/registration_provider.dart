@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:tinder_clone/models/models.dart';
 class RegistrationProvider {
   RegistrationProvider({required this.notifyListeners});
 
@@ -7,6 +7,7 @@ class RegistrationProvider {
   late PageController _controller;
   late int _pageCount;
   int _currentPage = 0;
+  User user = User();
 
   set pageController(PageController controller){
     this._controller = controller;

@@ -4,8 +4,10 @@ import 'package:tinder_clone/utilities/utilities.dart';
 import 'package:tinder_clone/widgets/widgets.dart';
 
 class UserBirthdayForm extends StatelessWidget {
-  const UserBirthdayForm({Key? key}) : super(key: key);
-
+  final TextEditingController _dayController = TextEditingController();
+  final TextEditingController _monthController = TextEditingController();
+  final TextEditingController _yearController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,9 +28,26 @@ class UserBirthdayForm extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: 40,
-                      child: CustomTextField(
-                        hintText: 'DD',
+                      width: 50,
+                      child: TextFormField(
+                        focusNode: _focusNode,
+                        controller: _dayController,
+                        keyboardType: TextInputType.number,
+                        decoration: K.textFormFieldDecoration(hintText: 'DD'),
+                        style: K.textFormFieldTextStyle,
+                        onChanged: (String value){
+                          if(value.length > 2){
+                            _dayController.text = value.substring(0, 2);
+                            _dayController.selection = TextSelection.fromPosition(TextPosition(offset: _dayController.text.length));
+                            //_focusNode.nextFocus();
+                          }
+                        },
+                        onSaved: (String? value){
+
+                        },
+                        validator: (String? value){
+
+                        },
                       ),
                     ),
                     Text(
@@ -36,9 +55,23 @@ class UserBirthdayForm extends StatelessWidget {
                       style: K.registerScreenSubHeaderTextStyle,
                     ),
                     SizedBox(
-                      width: 40,
-                      child: CustomTextField(
-                        hintText: 'MM',
+                      width: 50,
+                      child: TextFormField(
+                        controller: _monthController,
+                        keyboardType: TextInputType.number,
+                        decoration: K.textFormFieldDecoration(hintText: 'MM'),
+                        style: K.textFormFieldTextStyle,
+                        onChanged: (String value){
+                          if(value.length == 2){
+                            _focusNode.nextFocus();
+                          }
+                        },
+                        onSaved: (String? value){
+
+                        },
+                        validator: (String? value){
+
+                        },
                       ),
                     ),
                     Text(
@@ -47,8 +80,17 @@ class UserBirthdayForm extends StatelessWidget {
                     ),
                     SizedBox(
                       width: 60,
-                      child: CustomTextField(
-                        hintText: 'YYYY',
+                      child: TextFormField(
+                        controller: _yearController,
+                        keyboardType: TextInputType.number,
+                        decoration: K.textFormFieldDecoration(hintText: 'YYYY'),
+                        style: K.textFormFieldTextStyle,
+                        onSaved: (String? value){
+
+                        },
+                        validator: (String? value){
+
+                        },
                       ),
                     ),
                     SizedBox(width: 20,)

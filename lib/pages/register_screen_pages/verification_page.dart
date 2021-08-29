@@ -47,32 +47,86 @@ class VerificationPage extends StatelessWidget {
                   children: [
                     Expanded(
                       flex: 3,
-                      child: CustomTextField(),
+                      child: TextFormField(
+                        decoration: K.textFormFieldDecoration(),
+                        style: K.textFormFieldTextStyle,
+                        onSaved: (String? value){
+
+                        },
+                        validator: (String? value){
+
+                        },
+                      ),
                     ),
                     SizedBox(width: 20,),
                     Expanded(
                       flex: 3,
-                      child: CustomTextField(),
+                      child: TextFormField(
+                        decoration: K.textFormFieldDecoration(),
+                        style: K.textFormFieldTextStyle,
+                        onSaved: (String? value){
+
+                        },
+                        validator: (String? value){
+
+                        },
+                      ),
                     ),
                     SizedBox(width: 20,),
                     Expanded(
                       flex: 3,
-                      child: CustomTextField(),
+                      child: TextFormField(
+                        decoration: K.textFormFieldDecoration(),
+                        style: K.textFormFieldTextStyle,
+                        onSaved: (String? value){
+
+                        },
+                        validator: (String? value){
+
+                        },
+                      ),
                     ),
                     SizedBox(width: 20,),
                     Expanded(
                       flex: 3,
-                      child: CustomTextField(),
+                      child: TextFormField(
+                        decoration: K.textFormFieldDecoration(),
+                        style: K.textFormFieldTextStyle,
+                        onSaved: (String? value){
+
+                        },
+                        validator: (String? value){
+
+                        },
+                      ),
                     ),
                     SizedBox(width: 20,),
                     Expanded(
                       flex: 3,
-                      child: CustomTextField(),
+                      child: TextFormField(
+                        decoration: K.textFormFieldDecoration(),
+                        style: K.textFormFieldTextStyle,
+                        onSaved: (String? value){
+
+                        },
+                        validator: (String? value){
+
+                        },
+                      ),
                     ),
                     SizedBox(width: 20,),
                     Expanded(
                       flex: 3,
-                      child: CustomTextField(),
+                      child: TextFormField(
+                        decoration: K.textFormFieldDecoration(),
+                        style: K.textFormFieldTextStyle,
+                        onSaved: (String? value){
+
+                        },
+                        validator: (String? value){
+
+                        },
+                      ),
                     ),
                   ],
                 ),

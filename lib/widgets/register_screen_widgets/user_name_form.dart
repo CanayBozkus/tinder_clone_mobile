@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:tinder_clone/models/models.dart';
 import 'package:tinder_clone/utilities/providers/providers.dart';
 import 'package:tinder_clone/utilities/utilities.dart';
 import 'package:tinder_clone/widgets/widgets.dart';
 
 class UserNameForm extends StatelessWidget {
-  const UserNameForm({Key? key}) : super(key: key);
-
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    User user = context.read<GeneralProvider>().registrationProvider.user;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Column(
@@ -21,7 +22,31 @@ class UserNameForm extends StatelessWidget {
                   'My first name is',
                   style: K.registerScreenHeaderTextStyle,
                 ),
-                CustomTextField(),
+                Form(
+                  key: _formKey,
+                  child: TextFormField(
+                    decoration: K.textFormFieldDecoration(),
+                    style: K.textFormFieldTextStyle,
+                    onSaved: (String? value){
+                      user.name = value;
+                    },
+                    validator: (String? value){
+                      if(value == null){
+                        return 'Please enter your name';
+                      }
+
+                      else if(value.isEmpty){
+                        return 'Please enter your name';
+                      }
+
+                      else if(value.contains(RegExp(r'[0-9]'))){
+                        return 'Name cannot contain number';
+                      }
+
+                      return null;
+                    },
+                  ),
+                ),
                 SizedBox(height: 10,),
                 Text(
                   'This is how it will appear in Tinder and you will not be able to change it',
@@ -37,7 +62,11 @@ class UserNameForm extends StatelessWidget {
               text: 'CONTINUE',
               theme: RoundedButtonTheme.primaryGradient,
               onPressed: (){
-                context.read<GeneralProvider>().registrationProvider.nextPage();
+                if(_formKey.currentState?.validate() ?? false){
+                  _formKey.currentState?.save();
+                  FocusScope.of(context).unfocus();
+                  context.read<GeneralProvider>().registrationProvider.nextPage();
+                }
               },
             ),
           ),
